@@ -34,8 +34,8 @@
 - (void)clickActionSheetButton:(UIButton *)sender
 {
     NSArray *titleArray = @[@"微信",@"支付宝",@"淘宝",@"网易新闻",@"微博"];
-    [[ActionSheet ActionSheetView] showActionSheetWithArray:titleArray selectedIndexBlock:^(NSInteger index) {
-        NSLog(@"点击了第: %ld",index);
+    [[ActionSheet actionSheetView] showActionSheetWithArray:titleArray selectedIndexBlock:^(NSInteger index) {
+        NSLog(@"点击了第: %ld",(long)index);
     }];
 }
 

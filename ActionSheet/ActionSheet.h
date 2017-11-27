@@ -14,7 +14,7 @@ typedef void(^ActionSheetBlock)(NSInteger index);
 @interface ActionSheet : NSObject
 
 // 初始化弹窗
-+ (instancetype)ActionSheetView;
++ (instancetype)actionSheetView;
 
 // 显示弹窗
 - (void)showActionSheetWithArray:(NSArray *)titles selectedIndexBlock:(ActionSheetBlock)block;

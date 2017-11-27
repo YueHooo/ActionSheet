@@ -12,6 +12,10 @@
 #define ActionSheetFooterHeight 5
 #define ActionSheetHeight [UIScreen mainScreen].bounds.size.height
 #define ActionSheetWidth [UIScreen mainScreen].bounds.size.width
+// 适配iPhoneX (顶部)
+#define SafeAreaTopHeight (ActionSheetHeight == 812.0 ? 88 : 64)
+// 适配iPhoneX (低部)
+#define SafeAreaBottomHeight (ActionSheetHeight == 812.0 ? 34 : 0)
 static NSString *actionSheetCell = @"actionSheetCell";
 
 @interface ActionSheet ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
@@ -28,7 +32,7 @@ static NSString *actionSheetCell = @"actionSheetCell";
 // 初始化
 static ActionSheet *actionSheetType = nil;
 
-+ (instancetype)ActionSheetView
++ (instancetype)actionSheetView
 {
     if (!actionSheetType)
     {
@@ -56,7 +60,8 @@ static ActionSheet *actionSheetType = nil;
 {
     if (!_listView)
     {
-        _listView = [[UITableView alloc] initWithFrame:CGRectMake(0, ActionSheetHeight, ActionSheetWidth, ((self.titleArray.count + 1) * ActionSheetCellHeight) + ActionSheetFooterHeight) style:UITableViewStylePlain];
+        _listView = [[UITableView alloc] initWithFrame:CGRectMake(0, ActionSheetHeight, ActionSheetWidth, ((self.titleArray.count + 1) * ActionSheetCellHeight) + ActionSheetFooterHeight + SafeAreaBottomHeight) style:UITableViewStylePlain];
+//        NSLog(@"未加底部安全区域高度:%ld\n加了底部安全区域高度:%ld",((self.titleArray.count + 1) * ActionSheetCellHeight) + ActionSheetFooterHeight,((self.titleArray.count + 1) * ActionSheetCellHeight) + ActionSheetFooterHeight + SafeAreaBottomHeight);
         _listView.scrollEnabled = NO;
         _listView.rowHeight = ActionSheetCellHeight;
         if ([_listView respondsToSelector:@selector(setSeparatorInset:)])
@@ -87,7 +92,7 @@ static ActionSheet *actionSheetType = nil;
         
         self.bgView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.2];
         [[UIApplication sharedApplication].keyWindow addSubview:self.bgView];
-        self.listView.frame = CGRectMake(0, ActionSheetHeight - (((self.titleArray.count + 1) * ActionSheetCellHeight) + ActionSheetFooterHeight), ActionSheetWidth, (((self.titleArray.count + 1) * ActionSheetCellHeight) + ActionSheetFooterHeight));
+        self.listView.frame = CGRectMake(0, ActionSheetHeight - (((self.titleArray.count + 1) * ActionSheetCellHeight) + ActionSheetFooterHeight + SafeAreaBottomHeight), ActionSheetWidth, (((self.titleArray.count + 1) * ActionSheetCellHeight) + ActionSheetFooterHeight + SafeAreaBottomHeight));
     }];
 }
 
@@ -98,7 +103,7 @@ static ActionSheet *actionSheetType = nil;
     [UIView animateWithDuration:0.2 animations:^{
         
         self.bgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-        self.listView.frame = CGRectMake(0, ActionSheetHeight, ActionSheetWidth, (((self.titleArray.count + 1) * ActionSheetCellHeight) + ActionSheetFooterHeight));
+        self.listView.frame = CGRectMake(0, ActionSheetHeight, ActionSheetWidth, (((self.titleArray.count + 1) * ActionSheetCellHeight) + ActionSheetFooterHeight + SafeAreaBottomHeight));
     } completion:^(BOOL finished) {
         [self.bgView removeFromSuperview];
         actionSheetType = nil;
@@ -146,13 +151,13 @@ static ActionSheet *actionSheetType = nil;
     UIView *selectedView = [[UIView alloc] init];
     selectedView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     cell.selectedBackgroundView = selectedView;
-    if (indexPath.row != 1)
+    if (indexPath.section == 1)
     {
-        [self setTableViewCell:cell title:self.titleArray[indexPath.row]];
+        [self setTableViewCell:cell title:@"取消"];
     }
     else
     {
-        [self setTableViewCell:cell title:@"取消"];
+        [self setTableViewCell:cell title:self.titleArray[indexPath.row]];
     }
     return cell;
 }
@@ -174,6 +179,10 @@ static ActionSheet *actionSheetType = nil;
     if (section == 0)
     {
         return ActionSheetFooterHeight;
+    }
+    else
+    {
+        return 0.0001f;
     }
     return 0;
 }
