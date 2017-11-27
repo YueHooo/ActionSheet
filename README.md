@@ -1,5 +1,6 @@
 # ActionSheet
 仿微信弹窗效果Demo
+
 效果:
 ![image](https://github.com/ChaoYug/ActionSheet/blob/master/demo.gif)
 
