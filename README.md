@@ -1,8 +1,8 @@
 # ActionSheet
-仿微信弹窗效果Demo
+弹窗效果
 
 效果:
-![image](https://github.com/ChaoYug/ActionSheet/blob/master/demo.gif)
+![image](https://github.com/ChaoYug/ActionSheet/blob/master/demo.jpg)
 
 调用方法:
 
