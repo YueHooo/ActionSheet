@@ -1,10 +1,7 @@
 # ActionSheet
-弹窗效果
+一种类似微信的弹窗效果
 
-效果截图:
-![image](https://github.com/ChaoYug/ActionSheet/blob/master/demo.jpg)
-
-调用方法:
+使用方法:
 
 将ActionSheet拖入工程
 导入头文件#import "ActionSheet.h"
