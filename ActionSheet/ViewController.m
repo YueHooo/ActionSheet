@@ -33,8 +33,7 @@
 #pragma mark - touch
 - (void)clickActionSheetButton:(UIButton *)sender
 {
-    NSArray *titleArray = @[@"微信",@"支付宝",@"淘宝",@"网易新闻",@"微博"];
-    [[ActionSheet actionSheetView] showActionSheetWithArray:titleArray selectedIndexBlock:^(NSInteger index) {
+    [[ActionSheet actionSheetView] showActionSheetWithArray:@[@"微信",@"支付宝",@"淘宝",@"网易新闻",@"微博"] selectedIndexBlock:^(NSInteger index) {
         NSLog(@"点击了第: %ld",(long)index);
     }];
 }
